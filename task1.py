@@ -81,7 +81,17 @@ class Complex:
             except AttributeError:
                 pass
 
+    def isequal(self, other):
+        try:
+            return ((self.rel == other.rel) and (self.imaginary==other.imaginary))
+        except AttributeError:
+            raise ValueError(f"{other} is not a complex instance.")
 
+    def __eq__(self, other):
+        return self.isequal(other)
+
+    def __nq__(self, other):
+        return not self.isequal(other)
 
     @classmethod
     def get_add(cls, *others):
@@ -93,6 +103,11 @@ class Complex:
             except AttributeError:
                 pass
         return Complex(x, y)  
+    
+    def __add__(self, other):
+        if not isinstance(other, Complex):
+            raise ValueError(f"{other} is not complex instance.")
+        return Complex.get_add(self, other)
 
     @classmethod
     def get_subtract(cls, *others):
@@ -110,6 +125,11 @@ class Complex:
                 pass
         return Complex(x, y)
 
+    def __sub__(self, other):
+        if not isinstance(other, Complex):
+            raise ValueError(f"{other} is not complex instance.")
+        return Complex.get_subtract(self, other)
+
     @classmethod
     def get_multiply(cls, *others):
         x, y = 1, 0
@@ -119,6 +139,11 @@ class Complex:
             except AttributeError:
                 pass
         return Complex(x, y)
+    
+    def __mul__(self, other):
+        if not isinstance(other, Complex):
+            raise ValueError(f"{other} is not complex instance.")
+        return Complex.get_multiply(self, other)
         
     @classmethod
     def get_divide(cls, *others):
@@ -139,3 +164,8 @@ class Complex:
             except AttributeError:
                 pass
         return Complex(x, y)
+
+    def __truediv__(self, other):
+        if not isinstance(other, Complex):
+            raise ValueError(f"{other} is not complex instance.")
+        return Complex.get_divide(self, other)
