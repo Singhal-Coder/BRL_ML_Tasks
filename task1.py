@@ -30,10 +30,6 @@ class Complex:
 
     #    Getter and Setter ends
 
-    def Re(self):
-        return self.rel
-    def Im(self):
-        return self.imaginary
 
     def conjugate(self):
         return Complex(self.rel, -self.imaginary)
@@ -93,6 +89,18 @@ class Complex:
     def __nq__(self, other):
         return not self.isequal(other)
 
+    @classmethod
+    def Re(cls, _complex_):
+        if isinstance(_complex_, Complex):
+            return _complex_.rel
+        else:
+            return None
+    @classmethod
+    def Im(cls, _complex_):
+        if isinstance(_complex_, Complex):
+            return _complex_.imaginary
+        else:
+            return None
     @classmethod
     def get_add(cls, *others):
         x = y = 0
